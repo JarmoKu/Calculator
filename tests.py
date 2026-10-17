@@ -1,18 +1,27 @@
 import unittest
-from main import get_result
+import model
 
-class MyTestCase(unittest.TestCase):
+
+class TestModel(unittest.TestCase):
     def test_addition(self):
-        self.assertEqual(get_result('1.1', '+', '2'), 3.1)
+        model.current_operator = '+'
+        model.values = ['1.1', '2']
+        self.assertEqual(model.get_result(), 3.1)
 
     def test_subtraction(self):
-        self.assertEqual(get_result('2.1', '-', '3'), -0.9)
+        model.current_operator = '-'
+        model.values = ['2.1', '3']
+        self.assertEqual(model.get_result(), -0.9)
 
     def test_multiplication(self):
-        self.assertEqual(get_result('1.2', '*', '3'), 3.6)
+        model.current_operator = 'x'
+        model.values = ['1.2', '3']
+        self.assertEqual(model.get_result(), 3.6)
 
     def test_division(self):
-        self.assertEqual(get_result('15', '/', '3'), 5.0)
+        model.current_operator = '%'
+        model.values = ['15', '3']
+        self.assertEqual(model.get_result(), 5.0)
 
 
 if __name__ == '__main__':
