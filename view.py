@@ -1,6 +1,12 @@
 import tkinter as tk
 import model
 
+NUMBER_BUTTONS = (('1', 0, 0), ('2', 0, 1), ('3', 0, 2),
+                  ('4', 1, 0), ('5', 1, 1), ('6', 1, 2),
+                  ('7', 2, 0), ('8', 2, 1), ('9', 2, 2),
+                  ('0', 3, 0))
+
+OPERATOR_BUTTONS = (('%', 0, 3), ('x', 1, 3), ('+', 2, 3), ('-', 3, 3))
 
 class CalculatorGUI:
     def __init__(self):
@@ -20,61 +26,15 @@ class CalculatorGUI:
         button_frame.columnconfigure(2, weight=1)
         button_frame.columnconfigure(3, weight=1)
 
-        # row one
-        btn1 = tk.Button(button_frame, text='1', font=('Arial', 18),
-                         command=lambda: self.on_number_button_pressed('1'))
-        btn1.grid(row=0, column=0, sticky=tk.W+tk.E)
+        for info in NUMBER_BUTTONS:
+            btn = tk.Button(button_frame, text=info[0], font=('Arial', 18),
+                            command=lambda x = info[0]: self.on_number_button_pressed(x))
+            btn.grid(row=info[1], column=info[2], sticky=tk.W+tk.E)
 
-        btn1 = tk.Button(button_frame, text='2', font=('Arial', 18),
-                         command=lambda: self.on_number_button_pressed('2'))
-        btn1.grid(row=0, column=1, sticky=tk.W+tk.E)
-
-        btn1 = tk.Button(button_frame, text='3', font=('Arial', 18),
-                         command=lambda: self.on_number_button_pressed('3'))
-        btn1.grid(row=0, column=2, sticky=tk.W+tk.E)
-
-        btn1 = tk.Button(button_frame, text='%', font=('Arial', 18),
-                         command=lambda: self.on_operator_button_pressed('%'))
-        btn1.grid(row=0, column=3, sticky=tk.W+tk.E)
-
-        # row two
-        btn1 = tk.Button(button_frame, text='4', font=('Arial', 18),
-                         command=lambda: self.on_number_button_pressed('4'))
-        btn1.grid(row=1, column=0, sticky=tk.W+tk.E)
-
-        btn1 = tk.Button(button_frame, text='5', font=('Arial', 18),
-                         command=lambda: self.on_number_button_pressed('5'))
-        btn1.grid(row=1, column=1, sticky=tk.W+tk.E)
-
-        btn1 = tk.Button(button_frame, text='6', font=('Arial', 18),
-                         command=lambda: self.on_number_button_pressed('6'))
-        btn1.grid(row=1, column=2, sticky=tk.W+tk.E)
-
-        btn1 = tk.Button(button_frame, text='x', font=('Arial', 18),
-                         command=lambda: self.on_operator_button_pressed('x'))
-        btn1.grid(row=1, column=3, sticky=tk.W+tk.E)
-
-        # row three
-        btn1 = tk.Button(button_frame, text='7', font=('Arial', 18),
-                         command=lambda: self.on_number_button_pressed('7'))
-        btn1.grid(row=2, column=0, sticky=tk.W+tk.E)
-
-        btn1 = tk.Button(button_frame, text='8', font=('Arial', 18),
-                         command=lambda: self.on_number_button_pressed('8'))
-        btn1.grid(row=2, column=1, sticky=tk.W+tk.E)
-
-        btn1 = tk.Button(button_frame, text='9', font=('Arial', 18),
-                         command=lambda: self.on_number_button_pressed('9'))
-        btn1.grid(row=2, column=2, sticky=tk.W+tk.E)
-
-        btn1 = tk.Button(button_frame, text='+', font=('Arial', 18),
-                         command=lambda: self.on_operator_button_pressed('+'))
-        btn1.grid(row=2, column=3, sticky=tk.W+tk.E)
-
-        # row four
-        btn1 = tk.Button(button_frame, text='0', font=('Arial', 18),
-                         command=lambda: self.on_number_button_pressed('0'))
-        btn1.grid(row=3, column=0, sticky=tk.W+tk.E)
+        for info in OPERATOR_BUTTONS:
+            btn = tk.Button(button_frame, text=info[0], font=('Arial', 18),
+                            command=lambda x = info[0]: self.on_operator_button_pressed(x))
+            btn.grid(row=info[1], column=info[2], sticky=tk.W+tk.E)
 
         btn1 = tk.Button(button_frame, text='c', font=('Arial', 18),
                          command= self.on_reset_button_pressed)
@@ -83,10 +43,6 @@ class CalculatorGUI:
         btn1 = tk.Button(button_frame, text='=', font=('Arial', 18),
                          command=lambda: self.on_equal_button_pressed())
         btn1.grid(row=3, column=2, sticky=tk.W+tk.E)
-
-        btn1 = tk.Button(button_frame, text='-', font=('Arial', 18),
-                         command=lambda: self.on_operator_button_pressed('-'))
-        btn1.grid(row=3, column=3, sticky=tk.W+tk.E)
 
         button_frame.pack(fill='x')
 
