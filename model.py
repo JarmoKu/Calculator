@@ -14,6 +14,10 @@ def add_value(value):
                 return
             values[0] += value
         case 2:
+            if current_operator != '':
+                reset()
+                values.append(value)
+                return
             values[1] += value
         case _:
             values.clear()
