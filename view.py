@@ -46,8 +46,6 @@ class CalculatorGUI:
 
         button_frame.pack(fill='x')
 
-        self.root.mainloop()
-
     @staticmethod
     def create_string_to_display():
         display_text = ''
@@ -81,5 +79,3 @@ class CalculatorGUI:
         model.on_operator_pressed(operator)
         temp_display_text = self.create_string_to_display()
         self.display_text.set(temp_display_text)
-
-CalculatorGUI()
