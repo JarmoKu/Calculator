@@ -44,9 +44,9 @@ def get_result():
             return float(Decimal(first_value) + Decimal(second_value))
         case '-':
             return float(Decimal(first_value) - Decimal(second_value))
-        case 'x':
+        case '×':
             return float(Decimal(first_value * second_value))
-        case '%':
+        case '÷':
             return float(Decimal(first_value / second_value))
         case _:
             return 0
