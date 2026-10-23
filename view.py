@@ -44,6 +44,10 @@ class CalculatorGUI:
                          command=lambda: self.on_equal_button_pressed())
         btn1.grid(row=3, column=2, sticky=tk.W+tk.E)
 
+        btn1 = tk.Button(button_frame, text='.', font=('Arial', 18),
+                         command=lambda: self.on_decimal_button_pressed())
+        btn1.grid(row=4, column=0, sticky=tk.W + tk.E)
+
         button_frame.pack(fill='x')
 
     @staticmethod
@@ -60,6 +64,11 @@ class CalculatorGUI:
                 display_text = f'{model.values[0]} {model.current_operator} {model.values[1]}'
 
         return display_text
+
+    def on_decimal_button_pressed(self):
+        model.add_decimal()
+        temp_display_text = self.create_string_to_display()
+        self.display_text.set(temp_display_text)
 
     def on_reset_button_pressed(self):
         model.reset()

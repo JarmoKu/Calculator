@@ -24,6 +24,18 @@ def add_value(value):
             values.clear()
 
 
+def add_decimal():
+    match len(values):
+        case 0:
+            values[0] += '0.'
+        case 1:
+            values[0] += '.'
+        case 2:
+            values[1] += '.'
+        case _:
+            values.clear()
+
+
 def on_operator_pressed(operator):
     global current_operator
     if len(values) == 2 and current_operator != '':

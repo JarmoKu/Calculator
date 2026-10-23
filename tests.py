@@ -35,6 +35,17 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.current_operator, '')
         self.assertEqual(model.values, [])
 
+    def test_decimal_added(self):
+        model.add_value('2')
+        model.add_decimal()
+        model.add_value('1')
+        model.on_operator_pressed('+')
+        model.add_value('4')
+        model.add_decimal()
+        model.add_value('2')
+        self.assertEqual(model.values, ['2.1', '4.2'])
+        self.assertEqual(model.get_result(), 6.3)
+
 
 if __name__ == '__main__':
     unittest.main()
