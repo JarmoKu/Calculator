@@ -21,7 +21,8 @@ def add_value(value):
                 return
             values[1] += value
         case _:
-            values.clear()
+            raise ValueError(f'More values than allowed: {len(values)}')
+
 
 def toggle_negative():
     value_count = len(values)
@@ -45,7 +46,7 @@ def add_decimal():
         case 2:
             values[1] += '.'
         case _:
-            values.clear()
+            raise ValueError(f'More values than allowed: {len(values)}')
 
 
 def on_operator_pressed(operator):
@@ -73,7 +74,7 @@ def get_result():
         case '÷':
             return float(Decimal(first_value / second_value))
         case _:
-            return 0
+            raise ValueError(f'Not a valid operator: {current_operator}')
 
 
 def reset():
