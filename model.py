@@ -23,6 +23,18 @@ def add_value(value):
         case _:
             values.clear()
 
+def toggle_negative():
+    value_count = len(values)
+    if value_count == 0:
+        values.append('-0')
+    elif value_count == 1 or value_count == 2:
+        if values[value_count - 1].count('-') == 0:
+            values[value_count - 1] = '-' + values[value_count - 1]
+        else:
+            values[value_count - 1] = values[value_count - 1].replace('-', '')
+    else:
+        raise ValueError(f'More values than allowed: {len(values)}')
+
 
 def add_decimal():
     match len(values):

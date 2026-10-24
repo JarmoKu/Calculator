@@ -48,6 +48,10 @@ class CalculatorGUI:
                          command=lambda: self.on_decimal_button_pressed())
         btn1.grid(row=4, column=0, sticky=tk.W + tk.E)
 
+        btn1 = tk.Button(button_frame, text='+/-', font=('Arial', 18),
+                         command=lambda: self.on_toggle_negative_button_pressed())
+        btn1.grid(row=4, column=1, sticky=tk.W + tk.E)
+
         button_frame.pack(fill='x')
 
     @staticmethod
@@ -86,5 +90,10 @@ class CalculatorGUI:
 
     def on_operator_button_pressed(self, operator):
         model.on_operator_pressed(operator)
+        temp_display_text = self.create_string_to_display()
+        self.display_text.set(temp_display_text)
+
+    def on_toggle_negative_button_pressed(self):
+        model.toggle_negative()
         temp_display_text = self.create_string_to_display()
         self.display_text.set(temp_display_text)
