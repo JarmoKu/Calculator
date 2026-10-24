@@ -6,52 +6,35 @@ test_operators = ['+', '-', '×', '÷']
 
 class TestModel(unittest.TestCase):
     def test_addition(self):
-        model.add_value('1')
-        model.on_operator_pressed('+')
-        model.add_value('2')
-        self.assertEqual(model.get_result(), 3)
+        result = self.calculate(['1', '+', '2'])
+        self.assertEqual(result, 3)
         model.reset()
 
     def test_subtraction(self):
-        model.add_value('1')
-        model.on_operator_pressed('-')
-        model.add_value('2')
-        self.assertEqual(model.get_result(), -1)
+        result = self.calculate(['1', '-', '2'])
+        self.assertEqual(result, -1)
         model.reset()
 
     def test_multiplication(self):
-        model.add_value('2')
-        model.on_operator_pressed('×')
-        model.add_value('4')
-        self.assertEqual(model.get_result(), 8)
+        result = self.calculate(['2', '×', '4'])
+        self.assertEqual(result, 8)
         model.reset()
 
     def test_division(self):
-        model.add_value('15')
-        model.on_operator_pressed('÷')
-        model.add_value('5')
-        self.assertEqual(model.get_result(), 3)
+        result = self.calculate(['1', '5', '÷', '5'])
+        self.assertEqual(result, 3)
         model.reset()
 
     def test_reset(self):
-        model.add_value('15')
-        model.on_operator_pressed('÷')
-        model.add_value('5')
+        self.use_test_input(['1', '5', '÷', '5'])
         model.reset()
         self.assertEqual(model.current_operator, '')
         self.assertEqual(model.values, [])
-        model.reset()
 
     def test_decimal_added(self):
-        model.add_value('2')
-        model.add_decimal()
-        model.add_value('1')
-        model.on_operator_pressed('+')
-        model.add_value('4')
-        model.add_decimal()
-        model.add_value('2')
+        result = self.calculate(['2', '.', '1', '+', '4', '.', '2'])
         self.assertEqual(model.values, ['2.1', '4.2'])
-        self.assertEqual(model.get_result(), 6.3)
+        self.assertEqual(result, 6.3)
         model.reset()
 
     def test_toggle_negative(self):
