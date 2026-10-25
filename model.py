@@ -40,11 +40,15 @@ def toggle_negative():
 def add_decimal():
     match len(values):
         case 0:
-            values[0] += '0.'
+            values.append('0.')
         case 1:
-            values[0] += '.'
+            if current_operator != '':
+                values.append('0.')
+            elif values[0].count('.') == 0:
+                values[0] += '.'
         case 2:
-            values[1] += '.'
+            if values[1].count('.') == 0:
+                values[1] += '.'
         case _:
             raise ValueError(f'More values than allowed: {len(values)}')
 
@@ -55,7 +59,6 @@ def on_operator_pressed(operator):
         result = get_result()
         reset()
         add_value(result)
-
     current_operator = operator
 
 

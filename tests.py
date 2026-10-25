@@ -31,6 +31,31 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.current_operator, '')
         self.assertEqual(model.values, [])
 
+    def test_decimal_as_first_input(self):
+        self.use_test_input(['.'])
+        self.assertEqual(model.values[0], '0.')
+        model.reset()
+
+    def test_decimal_as_second_input(self):
+        self.use_test_input(['1','.'])
+        self.assertEqual(model.values[0], '1.')
+        model.reset()
+
+    def test_decimal_as_first_input_in_second_value(self):
+        self.use_test_input(['1', '+', '.'])
+        self.assertEqual(model.values, ['1', '0.'])
+        model.reset()
+
+    def test_decimal_as_second_input_in_second_value(self):
+        self.use_test_input(['1', '+', '1', '.'])
+        self.assertEqual(model.values, ['1', '1.'])
+        model.reset()
+
+    def test_that_value_can_only_have_one_decimal_point(self):
+        self.use_test_input(['1', '.', '.', '+', '2', '.', '.'])
+        self.assertEqual(model.values, ['1.', '2.'])
+        model.reset()
+
     def test_decimal_added(self):
         result = self.calculate(['2', '.', '1', '+', '4', '.', '2'])
         self.assertEqual(model.values, ['2.1', '4.2'])
