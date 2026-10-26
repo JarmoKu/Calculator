@@ -107,14 +107,17 @@ class TestModel(unittest.TestCase):
         result = model.get_result()
         self.assertEqual(model.values[0], '0')
         self.assertEqual(result, 0)
+        model.reset()
 
     def test_on_get_result_after_one_value(self):
         result = self.calculate(['2'])
         self.assertEqual(result, 2)
+        model.reset()
 
     def test_on_get_result_after_operator(self):
         result = self.calculate(['2', '+'])
-        self.assertEqual(result, 2)
+        self.assertEqual(result, 4)
+        model.reset()
 
     @staticmethod
     def use_test_input(test_inputs):

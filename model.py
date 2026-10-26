@@ -65,16 +65,14 @@ def on_operator_pressed(operator):
 def get_result():
     global operation_finished
     operation_finished = True
-    match len(values):
-        case 0:
-            values.append('0')
-            return 0
-        case 1:
+    if len(values) == 0:
+        values.append('0')
+        return 0
+    elif len(values) == 1:
+        if current_operator == '':
             return Decimal(values[0])
-        case 2:
-            return Decimal(values[1])
     first_value = Decimal(values[0])
-    second_value = Decimal(values[1])
+    second_value = first_value if len(values) == 1 else Decimal(values[1])
     match current_operator:
         case '+':
             return float(Decimal(first_value) + Decimal(second_value))
