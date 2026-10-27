@@ -68,20 +68,26 @@ def get_result():
     if len(values) == 0:
         values.append('0')
         return 0
-    elif len(values) == 1:
-        if current_operator == '':
-            return Decimal(values[0])
     first_value = Decimal(values[0])
+    if len(values) == 1:
+        if current_operator == '':
+            return first_value
+        else:
+            return binary_operation(first_value, first_value)
     second_value = first_value if len(values) == 1 else Decimal(values[1])
+    return binary_operation(first_value, second_value)
+
+
+def binary_operation(first_operand, second_operand):
     match current_operator:
         case '+':
-            return float(Decimal(first_value) + Decimal(second_value))
+            return float(Decimal(first_operand + second_operand))
         case '-':
-            return float(Decimal(first_value) - Decimal(second_value))
+            return float(Decimal(first_operand - second_operand))
         case '×':
-            return float(Decimal(first_value * second_value))
+            return float(Decimal(first_operand * second_operand))
         case '÷':
-            return float(Decimal(first_value / second_value))
+            return float(Decimal(first_operand / second_operand))
         case _:
             raise ValueError(f'Not a valid operator: {current_operator}')
 

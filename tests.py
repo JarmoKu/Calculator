@@ -6,8 +6,13 @@ test_operators = ['+', '-', '×', '÷']
 
 class TestModel(unittest.TestCase):
     def test_addition(self):
-        result = self.calculate(['1', '+', '2'])
-        self.assertEqual(result, 3)
+        result = self.calculate(['1', '.', '1', '+', '2', '.', '2'])
+        self.assertEqual(result, 3.3)
+        model.reset()
+
+    def test_addition_directly_after_equals(self):
+        result = self.calculate(['1', '+', '2', '+', '3'])
+        self.assertEqual(result, 6)
         model.reset()
 
     def test_subtraction(self):
@@ -137,7 +142,8 @@ class TestModel(unittest.TestCase):
 
     def calculate(self, test_inputs):
         self.use_test_input(test_inputs)
-        return model.get_result()
+        result = model.get_result()
+        return result
 
 if __name__ == '__main__':
     unittest.main()
