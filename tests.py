@@ -109,6 +109,7 @@ class TestModel(unittest.TestCase):
         model.reset()
 
     def test_on_get_result_before_any_values(self):
+        model.calculate_result()
         result = model.get_result()
         self.assertEqual(model.values[0], '0')
         self.assertEqual(result, 0)
@@ -142,6 +143,7 @@ class TestModel(unittest.TestCase):
 
     def calculate(self, test_inputs):
         self.use_test_input(test_inputs)
+        model.calculate_result()
         result = model.get_result()
         return result
 

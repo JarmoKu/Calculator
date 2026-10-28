@@ -2,7 +2,7 @@ from decimal import Decimal
 
 values = []
 current_operator = ''
-operation_finished = False
+final_result = None
 
 
 def add_value(value):
@@ -15,7 +15,7 @@ def add_value(value):
                 return
             values[0] += value
         case 2:
-            if operation_finished:
+            if final_result is not None:
                 reset()
                 values.append(value)
                 return
@@ -56,26 +56,30 @@ def add_decimal():
 def on_operator_pressed(operator):
     global current_operator
     if len(values) == 2 and current_operator != '':
-        result = get_result()
+        calculate_result()
+        temp_result = final_result
         reset()
-        add_value(result)
+        add_value(temp_result)
     current_operator = operator
 
 
-def get_result():
-    global operation_finished
-    operation_finished = True
+def calculate_result():
+    global final_result
     if len(values) == 0:
         values.append('0')
-        return 0
+        final_result = 0
     first_value = Decimal(values[0])
     if len(values) == 1:
         if current_operator == '':
-            return first_value
+            final_result = first_value
         else:
-            return binary_operation(first_value, first_value)
+            final_result = binary_operation(first_value, first_value)
     second_value = first_value if len(values) == 1 else Decimal(values[1])
-    return binary_operation(first_value, second_value)
+    final_result = binary_operation(first_value, second_value)
+
+
+def get_result():
+    return final_result
 
 
 def binary_operation(first_operand, second_operand):
@@ -89,13 +93,13 @@ def binary_operation(first_operand, second_operand):
         case '÷':
             return float(Decimal(first_operand / second_operand))
         case _:
-            raise ValueError(f'Not a valid operator: {current_operator}')
+            return first_operand
 
 
 def reset():
     global values
     global current_operator
-    global operation_finished
-    operation_finished = False
+    global final_result
+    final_result = None
     values.clear()
     current_operator = ''

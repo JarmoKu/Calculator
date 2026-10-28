@@ -79,6 +79,7 @@ class CalculatorGUI:
         self.display_text.set('0')
 
     def on_equal_button_pressed(self):
+        model.calculate_result()
         result = model.get_result()
         temp_display_text = f'{self.create_string_to_display()} = {result}'
         self.display_text.set(temp_display_text)
