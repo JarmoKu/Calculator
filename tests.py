@@ -108,6 +108,12 @@ class TestModel(unittest.TestCase):
         self.assertEqual(result, -3)
         model.reset()
 
+    def test_toggle_result_negative(self):
+        self.use_test_input(['2', '+', '5', '=', '+/-', '+', '2', '='])
+        self.assertEqual(model.get_result(), -5)
+        self.use_test_input(['+/-'])
+        self.assertEqual(model.values[0], 5)
+
     def test_on_get_result_before_any_values(self):
         model.calculate_result()
         result = model.get_result()
@@ -131,15 +137,18 @@ class TestModel(unittest.TestCase):
             if test_input in test_values:
                 model.add_value(test_input)
                 continue
-            if test_input == '.':
-                model.add_decimal()
-                continue
-            if test_input == '+/-':
-                model.toggle_negative()
-                continue
             if test_input in test_operators:
                 model.on_operator_pressed(test_input)
                 continue
+            match test_input:
+                case '.':
+                    model.add_decimal()
+                case '+/-':
+                    model.toggle_negative()
+                case '=':
+                    model.calculate_result()
+                case _:
+                    raise ValueError(f'Not a valid input: {test_input}')
 
     def calculate(self, test_inputs):
         self.use_test_input(test_inputs)

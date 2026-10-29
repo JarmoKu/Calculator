@@ -2,7 +2,7 @@ from decimal import Decimal
 
 values = []
 current_operator = ''
-final_result = None
+final_result: int | None = None
 
 
 def add_value(value):
@@ -26,13 +26,19 @@ def add_value(value):
 
 def toggle_negative():
     value_count = len(values)
+    global final_result
     if value_count == 0:
         values.append('-0')
+    elif final_result is not None:
+        temp = -final_result
+        reset()
+        values.append(temp)
     elif value_count == 1 or value_count == 2:
-        if values[value_count - 1].count('-') == 0:
-            values[value_count - 1] = '-' + values[value_count - 1]
+        last_value = values[value_count - 1]
+        if last_value.count('-') == 0:
+            values[value_count - 1] = '-' + last_value
         else:
-            values[value_count - 1] = values[value_count - 1].replace('-', '')
+            values[value_count - 1] = last_value.replace('-', '')
     else:
         raise ValueError(f'More values than allowed: {len(values)}')
 
