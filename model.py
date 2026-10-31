@@ -24,23 +24,35 @@ def add_value(value):
             raise ValueError(f'More values than allowed: {len(values)}')
 
 
-def toggle_negative():
-    value_count = len(values)
+def sign_change():
     global final_result
-    if value_count == 0:
-        values.append('-0')
-    elif final_result is not None:
-        temp = -final_result
-        reset()
-        values.append(temp)
-    elif value_count == 1 or value_count == 2:
-        last_value = values[value_count - 1]
-        if last_value.count('-') == 0:
-            values[value_count - 1] = '-' + last_value
-        else:
-            values[value_count - 1] = last_value.replace('-', '')
+    if final_result is not None:
+        reset_and_toggle_result_negative(final_result)
+        return
+    value_count = len(values)
+    match value_count:
+        case 0:
+            values.append('-0')
+        case 1:
+            toggle_operand_negative(value_count)
+        case 2:
+            toggle_operand_negative(value_count)
+        case _:
+            raise ValueError(f'More values than allowed: {len(values)}')
+
+
+def toggle_operand_negative(value_count):
+    last_value = values[value_count - 1]
+    if last_value.count('-') == 0:
+        values[value_count - 1] = '-' + last_value
     else:
-        raise ValueError(f'More values than allowed: {len(values)}')
+        values[value_count - 1] = last_value.replace('-', '')
+
+
+def reset_and_toggle_result_negative(result):
+    temp = -result
+    reset()
+    values.append(temp)
 
 
 def add_decimal():

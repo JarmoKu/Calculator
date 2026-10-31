@@ -144,7 +144,7 @@ class TestModel(unittest.TestCase):
                 case '.':
                     model.add_decimal()
                 case '+/-':
-                    model.toggle_negative()
+                    model.sign_change()
                 case '=':
                     model.calculate_result()
                 case _:

@@ -95,6 +95,6 @@ class CalculatorGUI:
         self.display_text.set(temp_display_text)
 
     def on_toggle_negative_button_pressed(self):
-        model.toggle_negative()
+        model.sign_change()
         temp_display_text = self.create_string_to_display()
         self.display_text.set(temp_display_text)
