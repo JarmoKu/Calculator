@@ -73,7 +73,9 @@ def add_decimal():
 
 def on_operator_pressed(operator):
     global current_operator
-    if len(values) == 2 and current_operator != '':
+    if len(values) == 0:
+        add_value('0')
+    elif len(values) == 2 and current_operator != '':
         calculate_result()
         temp_result = final_result
         reset()

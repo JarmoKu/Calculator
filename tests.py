@@ -15,6 +15,10 @@ class TestModel(unittest.TestCase):
         self.assertEqual(result, 6)
         model.reset()
 
+    def test_addition_before_adding_values(self):
+        self.use_test_input(['+', '5', '='])
+        self.assertEqual(model.get_result(), 5)
+
     def test_subtraction(self):
         result = self.calculate(['1', '-', '2'])
         self.assertEqual(result, -1)
